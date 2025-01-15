@@ -1,13 +1,8 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { FormValues } from './FormValues';
 
-interface FormValues {
-  firstName: string;
-  lastName: string;
-  email: string;
-  contact?: number
-}
 
 const Register: React.FC = () => {
 
@@ -18,7 +13,8 @@ const Register: React.FC = () => {
       firstName: '',
       lastName: '',
       email: '',
-      contact: undefined
+      contact: undefined,
+      password: ''
     },
     onSubmit: (values) => {
       setTimeout(()=>{
@@ -40,7 +36,8 @@ const Register: React.FC = () => {
         {id: "firstName", label: "First Name", type: "text"},
         {id: "lastName", label: "Last Name", type: "text"},
         {id: "email", label: "Email", type: "text"},
-        {id: "contact", label: "Contact", type: "tel"}
+        {id: "contact", label: "Contact", type: "tel"},
+        {id: "password", label: "Password", type: "password"}
       ].map(({id,label,type})=>(
         <div key={id}>
           <label htmlFor={id}>{label}: </label>
