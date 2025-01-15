@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { FormValues } from './FormValues';
 import * as Yup from 'yup'
+import {Button, Box, TextField} from '@mui/material';
 
 const Register: React.FC = () => {
 
@@ -37,8 +38,7 @@ const Register: React.FC = () => {
   });
 
   return (
-    <>
-    <form onSubmit={formik.handleSubmit}>
+    <Box component="form" onSubmit={formik.handleSubmit}>
       {[
         {id: "firstName", label: "First Name", type: "text"},
         {id: "lastName", label: "Last Name", type: "text"},
@@ -46,15 +46,27 @@ const Register: React.FC = () => {
         {id: "contact", label: "Contact", type: "tel"},
         {id: "password", label: "Password", type: "password"}
       ].map(({id,label,type})=>(
-        <div key={id}>
-          <label htmlFor={id}>{label}: </label>
-          <input id={id} name={id} type={type} value={(formik.values as any)[id]} onChange={formik.handleChange} />
-        </div>
+        // <div key={id}>
+        //   <label htmlFor={id}>{label}: </label>
+        //   <input id={id} name={id} type={type} value={(formik.values as any)[id]} onChange={formik.handleChange} />
+        // </div>
+        <Box>
+
+        <TextField
+          key={id}
+          id={id}
+          name={id}
+          label={label}
+          type={type} margin="dense"
+          value={(formik.values as any)[id]}
+          onChange={formik.handleChange}
+          
+          />
+          </Box>
       ))
     }    
-      <button type="submit">Register</button>
-    </form>
-    </>
+      <Button type="submit" variant="contained" >Register</Button>
+    </Box>
   );
 };
 
