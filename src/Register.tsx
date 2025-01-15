@@ -52,7 +52,7 @@ const Register: React.FC = () => {
         // </div>
         <Box>
 
-        <TextField
+        <TextField  sx={{backgroundColor: 'lightblue'}}
           key={id}
           id={id}
           name={id}
