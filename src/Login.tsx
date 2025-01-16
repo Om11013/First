@@ -1,6 +1,7 @@
 import { useFormik } from 'formik'
 import React from 'react'
 import { FormValues } from './FormValues'
+import {Button, Box, TextField} from '@mui/material';
 
 
 const Login: React.FC = () => {
@@ -35,22 +36,30 @@ const Login: React.FC = () => {
     })
 
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
+      <Box component="form" onSubmit={formik.handleSubmit}>
         {[
             {id: 'email', label: 'Email', type: 'email'},
             {id: 'password', label: 'Password', type: 'password'}
         ].map(({id,label,type})=>(
-            <div key={id}>
-                <label htmlFor={id}>{label}: </label>
-                <input id={id} name={id} type={type} value={(formik.values as any)[id]} onChange={formik.handleChange}/>
-            </div>
+            
+        <Box>
+
+        <TextField  sx={{backgroundColor: 'lightblue'}}
+          key={id}
+          id={id}
+          name={id}
+          label={label}
+          type={type} margin="dense"
+          value={(formik.values as any)[id]}
+          onChange={formik.handleChange}
+          
+          />
+        </Box>    
         )
         )
         }
-        <button type="submit">Login</button>
-      </form>
-    </div>
+        <Button type="submit" variant="contained">Login</Button>
+      </Box>
   )
 }
 
