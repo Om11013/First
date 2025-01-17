@@ -1,10 +1,11 @@
 import React from 'react';
-import { useFormik } from 'formik';
+import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { FormValues } from './FormValues';
 import * as Yup from 'yup'
-import {Button, Box, TextField} from '@mui/material';
+import {Button, Box} from '@mui/material';
 import formFields from './FormFields.json';
+import CustomTextField from './CustomTextField';
 
 const Register: React.FC = () => {
 
@@ -17,15 +18,15 @@ const Register: React.FC = () => {
     password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
   });
 
-  const formik = useFormik<FormValues>({
-    initialValues: {
+  const initialValues: FormValues ={
       firstName: '',
       lastName: '',
       email: '',
       contact: undefined,
       password: ''
-    },
-    onSubmit: (values) => {
+    };
+
+    const handleSubmit= (values:FormValues) => {
       setTimeout(()=>{
         console.log(values)
         const userEmail: string = values.email
@@ -34,30 +35,25 @@ const Register: React.FC = () => {
         }
       },1000)
       navigate('/login')
-    },
-    validationSchema
-  });
+    }
 
   return (
-    <Box component="form" onSubmit={formik.handleSubmit}>
-      {formFields
-      .map(({id,label,type})=>(
-        <Box>
-
-        <TextField  sx={{backgroundColor: 'lightblue'}}
-          key={id}
-          id={id}
-          name={id}
-          label={label}
-          type={type} margin="dense"
-          value={(formik.values as any)[id]}
-          onChange={formik.handleChange}
-          />
-          </Box>
-      ))
-    }    
-      <Button type="submit" variant="contained" >Register</Button>
-    </Box>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >   
+      {({ handleSubmit }) => (
+        <Box component="form" onSubmit={handleSubmit}>
+          {formFields.map(({ id, label, type }) => (
+            <CustomTextField key={id} id={id} label={label} type={type} />
+          ))}
+          <Button type="submit" variant="contained">
+            Register
+          </Button>
+        </Box>
+      )}
+    </Formik>
   );
 };
 

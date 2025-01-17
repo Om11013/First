@@ -1,22 +1,19 @@
-import { useFormik } from 'formik'
+import { Formik } from 'formik'
 import React from 'react'
 import { FormValues } from './FormValues'
-import {Button, Box, TextField} from '@mui/material';
+import {Button, Box} from '@mui/material';
 import formFields from './FormFields.json';
+import CustomTextField from './CustomTextField';
 
 
 const Login: React.FC = () => {
     type loginFormValues = Pick<FormValues, 'email' | 'password'>
-
-
-
-    const formik = useFormik<loginFormValues>({
-        initialValues: {
+        const initialValues:loginFormValues= {
             email: '',
             password: ''
 
-        },
-        onSubmit: (values)=>{
+        }
+        const handleSubmit = (values:loginFormValues)=>{
             setTimeout(() => {
                 console.log(values)
                 const userEmail = values.email
@@ -33,31 +30,24 @@ const Login: React.FC = () => {
                 
                 
             }, 1000);
-        },
-    })
+        }
 
   return (
-      <Box component="form" onSubmit={formik.handleSubmit}>
+    <Formik
+    initialValues={initialValues} onSubmit={handleSubmit}>
+        {({handleSubmit})=>
+
+      <Box component="form" onSubmit={handleSubmit}>
         {formFields.filter(field=>['email','password'].includes(field.id)).map(({id,label,type})=>(
             
-        <Box>
-
-        <TextField  sx={{backgroundColor: 'lightblue'}}
-          key={id}
-          id={id}
-          name={id}
-          label={label}
-          type={type} margin="dense"
-          value={(formik.values as any)[id]}
-          onChange={formik.handleChange}
-          
-          />
+            <Box>
+        <CustomTextField id={id} label={label} type={type} />
         </Box>    
-        )
-        )
-        }
+        ))}
         <Button type="submit" variant="contained">Login</Button>
       </Box>
+    }
+        </Formik>
   )
 }
 

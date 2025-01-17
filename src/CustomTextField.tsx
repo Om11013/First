@@ -1,16 +1,15 @@
 import React from 'react'
 import { useFormikContext } from 'formik'
 import { TextField,Box } from '@mui/material';
-import { string } from 'yup';
 
 interface CustomTextFieldProps {
     id: string,
     label: string,
-    type: string
+    type: string,
 }
 
 const CustomTextField: React.FC<CustomTextFieldProps> = ({ id, label, type }) => {
-    const { values, handleChange } = useFormikContext();
+    const { values, handleChange, touched,errors } = useFormikContext<{[key:string]:string}>();
 
     return (
         <Box margin="dense">
@@ -20,11 +19,12 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({ id, label, type }) =>
                 name={id}
                 label={label}
                 type={type}
-                // value={values[id]}
+                value={(values as any)[id]|| ''}
                 onChange={handleChange}
+                error={Boolean(touched?.[id] && errors?.[id])}
+                helperText={touched?.[id] && errors?.[id]}
             />
         </Box>
     );
 };
-
 export default CustomTextField;
