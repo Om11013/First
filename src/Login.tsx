@@ -2,6 +2,7 @@ import { useFormik } from 'formik'
 import React from 'react'
 import { FormValues } from './FormValues'
 import {Button, Box, TextField} from '@mui/material';
+import formFields from './FormFields.json';
 
 
 const Login: React.FC = () => {
@@ -37,10 +38,7 @@ const Login: React.FC = () => {
 
   return (
       <Box component="form" onSubmit={formik.handleSubmit}>
-        {[
-            {id: 'email', label: 'Email', type: 'email'},
-            {id: 'password', label: 'Password', type: 'password'}
-        ].map(({id,label,type})=>(
+        {formFields.filter(field=>['email','password'].includes(field.id)).map(({id,label,type})=>(
             
         <Box>
 

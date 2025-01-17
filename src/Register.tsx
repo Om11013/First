@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FormValues } from './FormValues';
 import * as Yup from 'yup'
 import {Button, Box, TextField} from '@mui/material';
+import formFields from './FormFields.json';
 
 const Register: React.FC = () => {
 
@@ -39,17 +40,8 @@ const Register: React.FC = () => {
 
   return (
     <Box component="form" onSubmit={formik.handleSubmit}>
-      {[
-        {id: "firstName", label: "First Name", type: "text"},
-        {id: "lastName", label: "Last Name", type: "text"},
-        {id: "email", label: "Email", type: "email"},
-        {id: "contact", label: "Contact", type: "tel"},
-        {id: "password", label: "Password", type: "password"}
-      ].map(({id,label,type})=>(
-        // <div key={id}>
-        //   <label htmlFor={id}>{label}: </label>
-        //   <input id={id} name={id} type={type} value={(formik.values as any)[id]} onChange={formik.handleChange} />
-        // </div>
+      {formFields
+      .map(({id,label,type})=>(
         <Box>
 
         <TextField  sx={{backgroundColor: 'lightblue'}}
