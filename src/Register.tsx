@@ -52,7 +52,6 @@ const Register: React.FC = () => {
           type={type} margin="dense"
           value={(formik.values as any)[id]}
           onChange={formik.handleChange}
-          
           />
           </Box>
       ))
