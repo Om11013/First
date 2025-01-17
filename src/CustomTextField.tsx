@@ -9,7 +9,7 @@ interface CustomTextFieldProps {
 }
 
 const CustomTextField: React.FC<CustomTextFieldProps> = ({ id, label, type }) => {
-    const { values, handleChange, touched,errors } = useFormikContext<{[key:string]:string}>();
+    const { values, handleChange } = useFormikContext<{[key:string]:string}>();
 
     return (
         <Box margin="dense">
@@ -21,8 +21,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({ id, label, type }) =>
                 type={type}
                 value={(values as any)[id]|| ''}
                 onChange={handleChange}
-                error={Boolean(touched?.[id] && errors?.[id])}
-                helperText={touched?.[id] && errors?.[id]}
+
             />
         </Box>
     );
