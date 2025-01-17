@@ -34,20 +34,19 @@ const Login: React.FC = () => {
 
   return (
     <Formik
-    initialValues={initialValues} onSubmit={handleSubmit}>
+        initialValues={initialValues} onSubmit={handleSubmit}>
         {({handleSubmit})=>
 
-      <Box component="form" onSubmit={handleSubmit}>
-        {formFields.filter(field=>['email','password'].includes(field.id)).map(({id,label,type})=>(
-            
+        <Box component="form" onSubmit={handleSubmit}>
+            {formFields.filter(field=>['email','password'].includes(field.id)).map(({id,label,type})=>(    
             <Box>
-        <CustomTextField id={id} label={label} type={type} />
-        </Box>    
-        ))}
+                <CustomTextField id={id} label={label} type={type} />
+            </Box>    
+            ))}
         <Button type="submit" variant="contained">Login</Button>
-      </Box>
-    }
-        </Formik>
+        </Box>
+        }
+    </Formik>
   )
 }
 
